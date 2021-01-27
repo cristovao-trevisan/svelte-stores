@@ -1,5 +1,5 @@
-<script context="module">
-  let instances = [];
+<script context="module" lang="ts">
+  let instances: {}[] = [];
 </script>
 
 <script lang="ts">
