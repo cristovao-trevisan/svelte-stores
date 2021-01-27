@@ -1,0 +1,23 @@
+{
+  "root": true,
+  "parser": "@typescript-eslint/parser",
+  "extends": ["eslint:recommended", "plugin:@typescript-eslint/recommended"],
+  "parserOptions": {
+    "ecmaVersion": 2019,
+    "sourceType": "module"
+  },
+  "env": {
+    "es6": true,
+    "browser": true,
+    "node": true
+  },
+  "plugins": ["@typescript-eslint", "prettier"],
+  "rules": {
+    "no-unused-vars": ["error", { "args": "none" }],
+    "no-console": "off",
+    "comma-dangle": ["error", "always-multiline"],
+    "semi": ["error", "always"],
+    "quotes": ["error", "single"],
+    "@typescript-eslint/explicit-module-boundary-types": "off"
+  }
+}

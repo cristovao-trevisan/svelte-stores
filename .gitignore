@@ -1,0 +1,6 @@
+/node_modules/
+**/.history
+/__sapper__/
+/src/node_modules/
+/static/tailwind.css
+/stats.html
