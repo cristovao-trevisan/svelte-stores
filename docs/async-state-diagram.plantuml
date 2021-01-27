@@ -1,0 +1,18 @@
+@startuml async-state-diagram
+state Store {
+  state "hash(params)" as hash <<expansionOutput>>
+  state InitialState
+  state LoadingState
+  state SuccessState
+  state ErrorState
+  [*] --> InitialState
+}
+
+InitialState --> LoadingState: request
+LoadingState --> SuccessState: then
+LoadingState --> ErrorState: catch
+SuccessState --> LoadingState: request
+
+state Component
+Component -right-> hash: use/request
+@enduml
