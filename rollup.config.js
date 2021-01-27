@@ -14,6 +14,7 @@ import pkg from './package.json';
 const mode = process.env.NODE_ENV;
 const dev = mode === 'development';
 const legacy = !!process.env.SAPPER_LEGACY_BUILD;
+const preprocess = sveltePreprocess({ postcss: true });
 
 const onwarn = (warning, onwarn) =>
 	(warning.code === 'MISSING_EXPORT' && /'preload'/.test(warning.message)) ||
@@ -31,7 +32,7 @@ export default {
 				'process.env.NODE_ENV': JSON.stringify(mode),
 			}),
 			svelte({
-				preprocess: sveltePreprocess(),
+				preprocess: preprocess,
 				compilerOptions: {
 					dev,
 					hydratable: true,
@@ -83,7 +84,7 @@ export default {
 				'process.env.NODE_ENV': JSON.stringify(mode),
 			}),
 			svelte({
-				preprocess: sveltePreprocess(),
+				preprocess: preprocess,
 				compilerOptions: {
 					dev,
 					generate: 'ssr',

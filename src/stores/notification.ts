@@ -7,13 +7,16 @@ export interface NotificationMessage {
   timeout: number
 }
 
+let timeoutRunning = false;
 export const messages = writable<NotificationMessage[]>([]);
 export const currentMessage = derived(messages, ($messages) => {
   const $message = $messages[0];
-  if ($message) {
+  if (!timeoutRunning && $message) {
     const { timeout } = $message;
+    timeoutRunning = true;
     setTimeout(() => {
-      messages.set($messages.slice(1));
+      timeoutRunning = false;
+      messages.update(ms => ms.slice(1));
     }, timeout);
   }
   return $message;
