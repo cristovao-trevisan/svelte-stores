@@ -32,6 +32,8 @@ jobs:
         with:
           node-version: '14'
 
+      - run: npm i
+
       - name: Test build working
         run: |
           npm run build
