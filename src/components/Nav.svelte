@@ -3,6 +3,7 @@
   
   const routes = [
     { path: 'form', name: 'form', prefetch: true },
+    { path: 'posts', name: 'posts', prefetch: true },
   ];
 </script>
 

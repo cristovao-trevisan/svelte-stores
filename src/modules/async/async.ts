@@ -48,13 +48,14 @@ export function createAsync<T, O=void>(func: AsyncFunc<T, O>) : AsyncResource<T,
 
   function initStore (opts: O) {
     const hash = hashFnv32a(JSON.stringify(opts));
-    if (!storeMap.has(hash)) {
+    const init = !storeMap.has(hash);
+    if (init) {
       const store = writable(initialState<T>(), () => {
         request(opts, false);
       });
       storeMap.set(hash, store);
     }
-    return storeMap.get(hash);
+    return { store: storeMap.get(hash), init };
   }
 
   function update (run: Updater<AsyncState<T>>, opts: O) {
@@ -67,10 +68,12 @@ export function createAsync<T, O=void>(func: AsyncFunc<T, O>) : AsyncResource<T,
     storeMap.get(hash).set(state);
   }
 
-  async function request (opts: O, reload = true) {
-    const store = initStore(opts);
-    const state = get(store) as AsyncState<T>;
-    if (!reload && (state.loaded || state.loading)) return state.data;
+  async function request (opts: O = null, reload = true) {
+    const { store, init } = initStore(opts);
+    if (!reload && !init) {
+      const state = get(store) as AsyncState<T>;
+      if (state.loaded || state.loading) return state.data;
+    }
     try {
       update(loadingState, opts);
       const data = await func(opts);
@@ -82,8 +85,8 @@ export function createAsync<T, O=void>(func: AsyncFunc<T, O>) : AsyncResource<T,
     }
   }
 
-  function use (opts:O): Readable<AsyncState<T>> {
-    const store = initStore(opts);
+  function use (opts:O = null): Readable<AsyncState<T>> {
+    const { store } = initStore(opts);
     function subscribe (run: Subscriber<T>) {
       return store.subscribe(run);
     }
