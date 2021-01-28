@@ -4,6 +4,11 @@ export const required = (v: unknown) => {
   }
 };
 
+export const greaterThan = (min: number) => (v: unknown) => {
+  if (v >= min) return;
+  return new Error(`Deve ser maior que ${min}`);
+};
+
 const emailRegex = /^[-!#$%&'*+/0-9=?A-Z^_a-z`{|}~](\.?[-!#$%&'*+/0-9=?A-Z^_a-z`{|}~])*@[a-zA-Z0-9](-*\.?[a-zA-Z0-9])*\.[a-zA-Z](-?[a-zA-Z0-9])+$/;
 
 export const errInvalidEmail = new Error('Email inválido');

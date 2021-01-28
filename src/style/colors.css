@@ -1,0 +1,12 @@
+:root {
+  --success-color: #009900;
+  --error-color: #cc2900;
+
+  --text-black: #222222;
+  --text-white: #eeeeee;
+  --text-gray: #aaaaaa;
+  --text-dark-gray: #444444;
+
+  --bg-gray: #f0f2f5;
+  --bg-dark: #2a4365;
+}
