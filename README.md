@@ -1,3 +1,3 @@
 # svelte-stores
 
-Svelte Meetup Brasil
+[4º Svelte Meetup Brasil](https://youtu.be/vDW_zVq5-vY)
